@@ -32,8 +32,8 @@ export const Unit = ({
       <UnitBanner title={title} description={description} />
       <div className="flex items-center flex-col relative">
         {lessons.map((lesson, index) => {
-          const iscurrent = lesson.id === activeLesson?.id;
-          const isLocked = !lesson.completed && !iscurrent;
+          const isCurrent = lesson.id === activeLesson?.id;
+          const isLocked = !lesson.completed && !isCurrent;
           return (
             <LessonButton
               key={lesson.id}
@@ -41,7 +41,7 @@ export const Unit = ({
               index={index}
               totalCount={lessons.length - 1}
               locked={isLocked}
-              current={iscurrent}
+              current={isCurrent}
               percentage={activeLessonPercentage}
             />
           );
