@@ -1,14 +1,14 @@
-// @flow
 import { Progress } from "@/components/ui/progress";
 import { useExitModal } from "@/store/use-exit-modal";
 import { InfinityIcon, X } from "lucide-react";
 import Image from "next/image";
-import * as React from "react";
+
 type Props = {
   hearts: number;
   percentage: number;
   hasActiveSubscription: boolean;
 };
+
 export const Header = ({
   hearts,
   percentage,
@@ -32,7 +32,7 @@ export const Header = ({
           className="mr-2"
         />
         {hasActiveSubscription ? (
-          <InfinityIcon className="h-6 w-6 stroke-[3]" />
+          <InfinityIcon className="h-6 w-6 stroke-[3] shrink-0" />
         ) : (
           hearts
         )}
