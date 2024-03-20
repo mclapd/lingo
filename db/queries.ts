@@ -10,7 +10,6 @@ import {
   userSubscription,
 } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import exp from "constants";
 
 export const getUserProgress = cache(async () => {
   const { userId } = await auth();
