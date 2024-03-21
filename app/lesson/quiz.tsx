@@ -14,6 +14,8 @@ import { reduceHearts } from "@/actions/user-progress";
 import { useAudio, useWindowSize, useMount } from "react-use";
 import Image from "next/image";
 import { ResultCard } from "./result-card";
+import { useHeartsModal } from "@/store/use-hearts-modal";
+import { usePracticeModal } from "@/store/use-practice-modal";
 
 type Props = {
   initialLessonId: number;
@@ -33,6 +35,15 @@ export const Quiz = ({
   initialPercentage,
   userSubscription,
 }: Props) => {
+  const { open: openHeartModal } = useHeartsModal();
+  const { open: openPracticeModal } = usePracticeModal();
+
+  useMount(() => {
+    if (initialPercentage === 100) {
+      openPracticeModal();
+    }
+  });
+
   const { width, height } = useWindowSize();
 
   const router = useRouter();
@@ -101,6 +112,7 @@ export const Quiz = ({
         upsertChallengeProgress(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
+              openHeartModal();
               return;
             }
 
@@ -120,6 +132,7 @@ export const Quiz = ({
         reduceHearts(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
+              openHeartModal();
               return;
             }
 
