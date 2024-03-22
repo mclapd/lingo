@@ -25,7 +25,11 @@ type Props = {
   })[];
   initialHearts: number;
   initialPercentage: number;
-  userSubscription: any;
+  userSubscription:
+    | (typeof userSubscription.$inferSelect & {
+        isActive: boolean;
+      })
+    | null;
 };
 
 export const Quiz = ({
@@ -35,7 +39,7 @@ export const Quiz = ({
   initialPercentage,
   userSubscription,
 }: Props) => {
-  const { open: openHeartModal } = useHeartsModal();
+  const { open: openHeartsModal } = useHeartsModal();
   const { open: openPracticeModal } = usePracticeModal();
 
   useMount(() => {
@@ -112,7 +116,7 @@ export const Quiz = ({
         upsertChallengeProgress(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
-              openHeartModal();
+              openHeartsModal();
               return;
             }
 
@@ -132,7 +136,7 @@ export const Quiz = ({
         reduceHearts(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
-              openHeartModal();
+              openHeartsModal();
               return;
             }
 
